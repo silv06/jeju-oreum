@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import backgroundOreum from "C:/Users/sonc3/Desktop/seunghyun/jeju-oreum-app/src/assets/Background_Oreum.png"
-import chatgptOreum1 from "C:/Users/sonc3/Desktop/seunghyun/jeju-oreum-app/src/assets/Chatgpt_Oreum1.png"
-import chatgptOreum2 from "C:/Users/sonc3/Desktop/seunghyun/jeju-oreum-app/src/assets/Chatgpt_Oreum2.png"
-import chatgptOreum3 from "C:/Users/sonc3/Desktop/seunghyun/jeju-oreum-app/src/assets/Chatgpt_Oreum3.png"
-import chatgptOreum4 from "C:/Users/sonc3/Desktop/seunghyun/jeju-oreum-app/src/assets/Chatgpt_Oreum4.png"
-import chatgptOreum5 from "C:/Users/sonc3/Desktop/seunghyun/jeju-oreum-app/src/assets/Chatgpt_Oreum5.png"
+import backgroundOreum from "jeju-oreum-app/src/assets/Background_Oreum.png"
+import chatgptOreum1 from "jeju-oreum-app/src/assets/Chatgpt_Oreum1.png"
+import chatgptOreum2 from "jeju-oreum-app/src/assets/Chatgpt_Oreum2.png"
+import chatgptOreum3 from "jeju-oreum-app/src/assets/Chatgpt_Oreum3.png"
+import chatgptOreum4 from "jeju-oreum-app/src/assets/Chatgpt_Oreum4.png"
+import chatgptOreum5 from "jeju-oreum-app/src/assets/Chatgpt_Oreum5.png"
 
 // [1단계] 파일 상단(import 직후)에 이 분석 함수들을 추가하세요.
 
@@ -57,9 +57,9 @@ const getOreumAnalysis = (type: 'NDWI' | 'EVI' | 'NMDI' | 'BSI', value: number |
     return { status: "알수없음", message: "-", level: "Info" };
 };
 
-// Supabase 초기화
-const supabaseUrl = "SUPABASE_URL";
-const supabaseKey = "SUPABASE_KEY";
+// App.tsx
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
 
 let supabase: SupabaseClient | null = null;
 try {
@@ -221,7 +221,7 @@ const AIRecommendationSection = ({ oreums }: { oreums: Oreum[] }) => {
     const [query, setQuery] = useState("");
     const [result, setResult] = useState<any>(null);
     const [loading, setLoading] = useState(false);
-    const API_KEY = "OPEN_API";
+    const API_KEY = import.meta.env.VITE_OPEN_API;
 
     // [2단계 수정] AIRecommendationSection 내부의 handleSearch 함수 교체
     const handleSearch = async (e: React.FormEvent) => {
