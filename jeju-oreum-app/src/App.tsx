@@ -24,7 +24,7 @@ const getOreumAnalysis = (type: 'NDWI' | 'EVI' | 'NMDI' | 'BSI', value: number |
         return { status: "정보없음", message: "데이터 수신 대기중...", level: "Info" };
     }
 
-    // 1. NDWI. (질척임) [엑셀 기준 반영]
+    // 1. NDWI (질척임) [엑셀 기준 반영]
     if (type === 'NDWI') {
         if (value > 0.1) return { status: "🌊 침수/물웅덩이", message: "등산로가 물에 잠겼을 수 있어요. 장화 필수!", level: "Critical" };
         if (value >= -0.1) return { status: "💩 질척거림", message: "땅이 많이 질척거려요. 미끄러움 주의!", level: "Warning" }; // -0.1 ~ 0.1
@@ -139,7 +139,9 @@ const Icons = {
     Sparkles: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L12 3Z"/></svg>,
     Search: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>,
     Send: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>,
-    ArrowLeft: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"/></svg>
+    ArrowLeft: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"/></svg>,
+    Menu: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>,
+    X: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>,
 };
 
 // 스크롤 리빌 애니메이션 컴포넌트
@@ -184,16 +186,16 @@ const StatCard = ({ label, value, sub, icon: Icon, color }: { label: string, val
     const variant = colorVariants[color] || colorVariants.blue;
 
     return (
-        <div className="group relative overflow-hidden p-6 rounded-3xl border border-white/20 transition-all duration-500 hover:border-blue-500/50">
-            <div className="flex justify-between items-start mb-6">
-                <div className={`p-3 ${variant.bg} rounded-2xl ${variant.text} group-hover:scale-110 transition-transform duration-500`}>
+        <div className="group relative overflow-hidden p-5 md:p-6 rounded-3xl border border-white/20 transition-all duration-500 hover:border-blue-500/50">
+            <div className="flex justify-between items-start mb-4 md:mb-6">
+                <div className={`p-2.5 md:p-3 ${variant.bg} rounded-2xl ${variant.text} group-hover:scale-110 transition-transform duration-500`}>
                     <Icon />
                 </div>
-                <div className={`text-xs font-bold ${variant.text} px-2 py-1 ${variant.bg} rounded-lg`}>{sub}</div>
+                <div className={`text-[10px] md:text-xs font-bold ${variant.text} px-2 py-1 ${variant.bg} rounded-lg`}>{sub}</div>
             </div>
             <div>
-                <div className="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">{label}</div>
-                <div className="text-4xl font-black text-white tracking-tight">{value}</div>
+                <div className="text-gray-400 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-1 md:mb-2">{label}</div>
+                <div className="text-3xl md:text-4xl font-black text-white tracking-tight">{value}</div>
             </div>
         </div>
     );
@@ -331,16 +333,18 @@ ${csvData}`;
                 <h2 className="text-4xl md:text-5xl font-black mb-6">Sentinel 1&2기반 맞춤 오름 추천 AI</h2>
                 <p className="text-gray-500 text-lg mb-12">"사용자 맞춤형 오름 리스트 추천, 오름 등산 의사결정 두 가지 기능이 있습니다."</p>
                 <form onSubmit={handleSearch} className="relative max-w-3xl mx-auto mb-16">
-                    <div className="bg-white p-2 rounded-full flex items-center shadow-2xl border border-blue-100 focus-within:ring-4 focus-within:ring-blue-500/20 transition-all duration-300">
-                        <div className="pl-6 text-gray-400"><Icons.Search /></div>
-                        <input 
-                            type="text" 
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            placeholder="(예: 제주한라대 근처의 오름들을 추천해줘, 어제 비 왔는데 용눈이오름 올라가도 될까?)"
-                            className="flex-1 bg-transparent border-none px-4 py-4 text-lg focus:outline-none text-gray-800 placeholder-gray-400"
-                        />
-                        <button type="submit" disabled={loading} className="bg-blue-600 text-white px-8 py-4 rounded-full font-bold hover:bg-blue-700 disabled:bg-blue-400 flex items-center gap-2 transition-all shadow-lg hover:shadow-blue-500/30 whitespace-nowrap">
+                    <div className="bg-white p-1.5 md:p-2 rounded-2xl md:rounded-full flex flex-col md:flex-row items-center shadow-2xl border border-blue-100 focus-within:ring-4 focus-within:ring-blue-500/20 transition-all duration-300">
+                        <div className="flex items-center w-full px-4 py-2 md:py-0">
+                            <div className="text-gray-400"><Icons.Search /></div>
+                            <input 
+                                type="text" 
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                                placeholder="(예: 제주한라대 근처 오름 추천해줘, 금오름 현재 올라가도 될까)"
+                                className="flex-1 bg-transparent border-none px-4 py-3 text-base md:text-lg focus:outline-none text-gray-800 placeholder-gray-400"
+                            />
+                        </div>
+                        <button type="submit" disabled={loading} className="w-full md:w-auto bg-blue-600 text-white px-8 py-4 rounded-xl md:rounded-full font-bold hover:bg-blue-700 disabled:bg-blue-400 flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-blue-500/30 whitespace-nowrap">
                             {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <>AI 분석</>}
                         </button>
                     </div>
@@ -673,58 +677,58 @@ const OreumListPage = ({ onBack, oreums }: { onBack: () => void, oreums: Oreum[]
         <div className="min-h-screen bg-white text-gray-900 font-sans animate-[fadeIn_0.3s_ease-out]">
             {/* Header */}
             <nav className="fixed w-full z-50 bg-white shadow-sm border-b border-gray-100 h-16 flex items-center">
-                <div className="max-w-7xl mx-auto px-6 w-full flex justify-between items-center">
-                    <button onClick={onBack} className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-bold transition-colors">
-                        <Icons.ArrowLeft /> 돌아가기
+                <div className="max-w-7xl mx-auto px-4 md:px-6 w-full flex justify-between items-center">
+                    <button onClick={onBack} className="flex items-center gap-1 md:gap-2 text-gray-600 hover:text-blue-600 font-bold transition-colors text-sm md:text-base">
+                        <Icons.ArrowLeft /> <span className="hidden xs:inline">돌아가기</span>
                     </button>
-                    <div className="text-xl font-black tracking-tighter uppercase text-black flex items-center gap-2">
-                        <Icons.Mountain /> 어디 오름?
+                    <div className="text-lg md:text-xl font-black tracking-tighter uppercase text-black flex items-center gap-2">
+                        <Icons.Mountain /> <span className="xs:inline">어디 오름?</span>
                     </div>
-                    <div className="w-20"></div> {/* Spacer for center alignment */}
+                    <div className="w-10 md:w-20"></div>
                 </div>
             </nav>
 
-            <div className="pt-24 max-w-7xl mx-auto px-6 pb-20">
-                <div className="mb-12 text-center">
-                    <h2 className="text-4xl font-black text-gray-900 mb-4">제주 오름 탐험 지도</h2>
-                    <p className="text-gray-500 text-lg">총 {oreums ? oreums.length : 0}개의 주요 오름 데이터베이스</p>
+            <div className="pt-24 max-w-7xl mx-auto px-4 md:px-6 pb-20">
+                <div className="mb-8 md:mb-12 text-center">
+                    <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-2 md:mb-4">제주 오름 탐험 지도</h2>
+                    <p className="text-gray-500 text-base md:text-lg">총 {oreums ? oreums.length : 0}개의 오름 정보</p>
                 </div>
 
                 {/* Filters */}
-                <div className="mb-8 flex flex-wrap gap-2 justify-center">
-                    <button onClick={() => setFilterType('all')} className={`px-4 py-2 rounded-lg text-sm font-bold transition ${filterType === 'all' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>전체보기</button>
-                    <button onClick={() => setFilterType('height')} className={`px-4 py-2 rounded-lg text-sm font-bold transition ${filterType === 'height' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>높은순 🔼</button>
-                    <button onClick={() => setFilterType('diff_high')} className={`px-4 py-2 rounded-lg text-sm font-bold transition ${filterType === 'diff_high' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>난이도 (상)</button>
-                    <button onClick={() => setFilterType('diff_mid')} className={`px-4 py-2 rounded-lg text-sm font-bold transition ${filterType === 'diff_mid' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>난이도 (중)</button>
-                    <button onClick={() => setFilterType('diff_low')} className={`px-4 py-2 rounded-lg text-sm font-bold transition ${filterType === 'diff_low' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>난이도 (하)</button>
+                <div className="mb-8 flex flex-wrap gap-2 justify-center overflow-x-auto pb-2 no-scrollbar">
+                    <button onClick={() => setFilterType('all')} className={`whitespace-nowrap px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition ${filterType === 'all' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>전체</button>
+                    <button onClick={() => setFilterType('height')} className={`whitespace-nowrap px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition ${filterType === 'height' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>높은순</button>
+                    <button onClick={() => setFilterType('diff_high')} className={`whitespace-nowrap px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition ${filterType === 'diff_high' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>상</button>
+                    <button onClick={() => setFilterType('diff_mid')} className={`whitespace-nowrap px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition ${filterType === 'diff_mid' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>중</button>
+                    <button onClick={() => setFilterType('diff_low')} className={`whitespace-nowrap px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition ${filterType === 'diff_low' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>하</button>
                 </div>
 
                 {/* Table */}
-                <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+                <div className="bg-white rounded-2xl md:rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
+                        <table className="w-full text-left border-collapse min-w-[500px] md:min-w-full">
                             <thead className="bg-gray-50 border-b border-gray-100">
                                 <tr>
-                                    <th className="p-6 text-sm font-bold text-gray-500 uppercase whitespace-nowrap">오름명</th>
-                                    <th className="p-6 text-sm font-bold text-gray-500 uppercase whitespace-nowrap">위치</th>
-                                    <th className="p-6 text-sm font-bold text-gray-500 uppercase whitespace-nowrap">높이(m)</th>
-                                    <th className="p-6 text-sm font-bold text-gray-500 uppercase whitespace-nowrap">난이도</th>
-                                    <th className="p-6 text-sm font-bold text-gray-500 uppercase">특징</th>
+                                    <th className="p-4 md:p-6 text-xs md:text-sm font-bold text-gray-500 uppercase">오름명</th>
+                                    <th className="p-4 md:p-6 text-xs md:text-sm font-bold text-gray-500 uppercase hidden sm:table-cell">위치</th>
+                                    <th className="p-4 md:p-6 text-xs md:text-sm font-bold text-gray-500 uppercase">높이</th>
+                                    <th className="p-4 md:p-6 text-xs md:text-sm font-bold text-gray-500 uppercase">난이도</th>
+                                    <th className="p-4 md:p-6 text-xs md:text-sm font-bold text-gray-500 uppercase hidden lg:table-cell">특징</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
                                 {filteredData.map((item, idx) => (
                                     <tr key={idx} onClick={() => setSelectedOreum(item)} className="hover:bg-blue-50/30 transition-colors group cursor-pointer">
-                                        <td className="p-6 font-bold text-gray-900 whitespace-nowrap">{item.name || '-'}</td>
-                                        <td className="p-6 text-sm text-gray-600 whitespace-nowrap">{item.loc || '-'}</td>
-                                        <td className="p-6 font-mono text-blue-600 font-bold whitespace-nowrap">{item.height || '0'}m</td>
-                                        <td className="p-6 whitespace-nowrap">
-                                            <span className={`px-3 py-1.5 rounded-md text-xs font-bold 
+                                        <td className="p-4 md:p-6 font-bold text-gray-900 text-sm md:text-base">{item.name || '-'}</td>
+                                        <td className="p-4 md:p-6 text-xs md:text-sm text-gray-600 hidden sm:table-cell">{item.loc || '-'}</td>
+                                        <td className="p-4 md:p-6 font-mono text-blue-600 font-bold text-sm md:text-base">{item.height || '0'}m</td>
+                                        <td className="p-4 md:p-6">
+                                            <span className={`px-2 md:px-3 py-1 md:py-1.5 rounded-md text-[10px] md:text-xs font-bold 
                                                 ${String(item.diff || '').trim() === '상' ? 'bg-red-100 text-red-600' : String(item.diff || '').trim() === '중' ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600'}`}>
                                                 {item.diff || '하'}
                                             </span>
                                         </td>
-                                        <td className="p-6 text-sm text-gray-500 max-w-md truncate group-hover:whitespace-normal group-hover:overflow-visible transition-all duration-300" title={item.desc}>
+                                        <td className="p-4 md:p-6 text-xs md:text-sm text-gray-500 max-w-md truncate hidden lg:table-cell" title={item.desc}>
                                             {item.desc || '정보 없음'}
                                         </td>
                                     </tr>
@@ -754,17 +758,20 @@ const LandingPage = ({ onNavigate, oreums }: { onNavigate: (view: string) => voi
         <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
             <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-lg py-3' : 'bg-transparent py-6'}`}>
                 <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-                    <div className={`text-2xl font-black tracking-tighter uppercase flex items-center gap-2 ${scrolled ? 'text-black' : 'text-white'}`}>
-                        <Icons.Mountain /> 어디 오름?
+                    <div className={`text-xl md:text-2xl font-black tracking-tighter uppercase flex items-center gap-2 ${scrolled ? 'text-black' : 'text-white'}`}>
+                        <Icons.Mountain /> <span className="hidden xs:inline">어디 오름?</span>
                     </div>
-                    <div className={`hidden md:flex space-x-8 text-sm font-bold ${scrolled ? 'text-gray-600' : 'text-white/80'}`}>
-                        <a href="#" onClick={(e) => { e.preventDefault(); onNavigate('list'); }} className="hover:text-blue-500 transition-colors">오름 목록 데이터베이스(오름에 대한 대략적인 정보가 궁금하면!)</a>
+                    <div className={`flex items-center space-x-4 md:space-x-8 text-xs md:text-sm font-bold ${scrolled ? 'text-gray-600' : 'text-white/80'}`}>
+                        <a href="#" onClick={(e) => { e.preventDefault(); onNavigate('list'); }} className="hover:text-blue-500 transition-colors flex items-center gap-1 bg-blue-600/10 md:bg-transparent px-3 py-2 md:p-0 rounded-full">
+                            <Icons.Map />
+                            <span className="hidden sm:inline">오름 목록 데이터베이스</span>
+                            <span className="sm:hidden">목록보기</span>
+                        </a>
                     </div>
-                    <div className="w-20 md:w-32"></div>
                 </div>
             </nav>
 
-            <section className="relative min-h-[90vh] flex items-center bg-black pt-20">
+            <section className="relative min-h-[100vh] lg:min-h-[90vh] flex items-center bg-black pt-20">
                 <img src={backgroundOreum} className="absolute inset-0 w-full h-full object-cover opacity-50" alt="Background"/>
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
                 <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-5 gap-12 items-center">
@@ -774,8 +781,8 @@ const LandingPage = ({ onNavigate, oreums }: { onNavigate: (view: string) => voi
                                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                                 LIVE SATELLITE STATUS
                             </div>
-                            <h1 className="text-6xl md:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tighter">JEJU<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">OREUM</span><br/>EXPLORER</h1>
-                            <p className="text-xl text-gray-400 max-w-md font-light leading-relaxed">우주에서 바라본 제주의 숨결. <br/>위성 데이터가 안내하는 368개의 모험.</p>
+                            <h1 className="text-5xl md:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tighter">JEJU<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">OREUM</span><br/>EXPLORER</h1>
+                            <p className="text-lg md:text-xl text-gray-400 max-w-md font-light leading-relaxed">우주에서 바라본 제주의 숨결. <br className="hidden md:block"/>위성 데이터가 안내하는 368개의 모험.</p>
                         </ScrollReveal>
                     </div>
                     <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-6">
