@@ -6,6 +6,7 @@ import chatgptOreum2 from "./assets/Chatgpt_Oreum2.png"
 import chatgptOreum3 from "./assets/Chatgpt_Oreum3.png"
 import chatgptOreum4 from "./assets/Chatgpt_Oreum4.png"
 import chatgptOreum5 from "./assets/Chatgpt_Oreum5.png"
+import OreumLogo from "./assets/Oreum_Logo.png"
 
 // [1단계] 파일 상단(import 직후)에 이 분석 함수들을 추가하세요.
 
@@ -759,7 +760,7 @@ const LandingPage = ({ onNavigate, oreums }: { onNavigate: (view: string) => voi
             <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-lg py-3' : 'bg-transparent py-6'}`}>
                 <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                     <div className={`text-xl md:text-2xl font-black tracking-tighter uppercase flex items-center gap-2 ${scrolled ? 'text-black' : 'text-white'}`}>
-                        <Icons.Mountain /> <span className="hidden xs:inline">어디 오름?</span>
+                        <img src={OreumLogo} alt="Logo" className="w-20 h-8 mr-2" />
                     </div>
                     <div className={`flex items-center space-x-4 md:space-x-8 text-xs md:text-sm font-bold ${scrolled ? 'text-gray-600' : 'text-white/80'}`}>
                         <a href="#" onClick={(e) => { e.preventDefault(); onNavigate('list'); }} className="hover:text-blue-500 transition-colors flex items-center gap-1 bg-blue-600/10 md:bg-transparent px-3 py-2 md:p-0 rounded-full">
