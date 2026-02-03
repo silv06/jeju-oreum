@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import backgroundOreum from "jeju-oreum-app/src/assets/Background_Oreum.png"
-import chatgptOreum1 from "jeju-oreum-app/src/assets/Chatgpt_Oreum1.png"
-import chatgptOreum2 from "jeju-oreum-app/src/assets/Chatgpt_Oreum2.png"
-import chatgptOreum3 from "jeju-oreum-app/src/assets/Chatgpt_Oreum3.png"
-import chatgptOreum4 from "jeju-oreum-app/src/assets/Chatgpt_Oreum4.png"
-import chatgptOreum5 from "jeju-oreum-app/src/assets/Chatgpt_Oreum5.png"
+import backgroundOreum from "./assets/Background_Oreum.png"
+import chatgptOreum1 from "./assets/Chatgpt_Oreum1.png"
+import chatgptOreum2 from "./assets/Chatgpt_Oreum2.png"
+import chatgptOreum3 from "./assets/Chatgpt_Oreum3.png"
+import chatgptOreum4 from "./assets/Chatgpt_Oreum4.png"
+import chatgptOreum5 from "./assets/Chatgpt_Oreum5.png"
 
 // [1단계] 파일 상단(import 직후)에 이 분석 함수들을 추가하세요.
 
