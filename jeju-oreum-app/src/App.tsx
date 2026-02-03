@@ -24,7 +24,7 @@ const getOreumAnalysis = (type: 'NDWI' | 'EVI' | 'NMDI' | 'BSI', value: number |
         return { status: "정보없음", message: "데이터 수신 대기중...", level: "Info" };
     }
 
-    // 1. NDWI (질척임) [엑셀 기준 반영]
+    // 1. NDWI. (질척임) [엑셀 기준 반영]
     if (type === 'NDWI') {
         if (value > 0.1) return { status: "🌊 침수/물웅덩이", message: "등산로가 물에 잠겼을 수 있어요. 장화 필수!", level: "Critical" };
         if (value >= -0.1) return { status: "💩 질척거림", message: "땅이 많이 질척거려요. 미끄러움 주의!", level: "Warning" }; // -0.1 ~ 0.1
